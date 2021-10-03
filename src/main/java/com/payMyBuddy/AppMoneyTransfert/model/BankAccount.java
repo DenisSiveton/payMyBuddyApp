@@ -13,5 +13,19 @@ public class BankAccount {
     @Column(name = "bankAccount_iban")
     private String iban;
 
+    public int getBankAccountId() {
+        return bankAccountId;
+    }
 
+    public void setBankAccountId(int bankAccountId) {
+        this.bankAccountId = bankAccountId;
+    }
+
+    public String getIban() {
+        return iban;
+    }
+
+    public void setIban(String iban) {
+        this.iban = iban;
+    }
 }
