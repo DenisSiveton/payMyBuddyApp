@@ -1,5 +1,7 @@
 package com.payMyBuddy.AppMoneyTransfert.model;
 
+import org.springframework.cache.interceptor.CacheAspectSupport;
+
 import javax.persistence.*;
 
 @Entity
@@ -15,6 +17,12 @@ public class Transaction {
 
     @Column(name = "description")
     private String content;
+
+    @ManyToOne(
+            cascade = CascadeType.ALL
+    )
+    @JoinColumn(name = "connection_id")
+    private Connection connection;
 
     public int getTransactionId() {
         return transactionId;
@@ -38,5 +46,13 @@ public class Transaction {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Connection getConnection() {
+        return connection;
+    }
+
+    public void setConnection(Connection connection) {
+        this.connection = connection;
     }
 }
