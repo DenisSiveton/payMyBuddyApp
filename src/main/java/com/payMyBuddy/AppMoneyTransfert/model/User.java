@@ -30,20 +30,21 @@ public class User {
     private Double accountBalance;
 
     @OneToMany(
-            fetch = FetchType.EAGER,
+            mappedBy = "user",
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    @JoinColumn(name = "user_id")
     private List<BankAccount> bankAccounts = new ArrayList<>();
 
-    @OneToMany(
-            fetch = FetchType.EAGER,
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL
     )
-    @JoinColumn(name = "user_id1")
-    private List<Relationship> relationships = new ArrayList<>();
+    @JoinTable(name = "relationship",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "connection_id")
+    )
+    private List<Connection> connections = new ArrayList<>();
 
     public int getUserId() {
         return userId;
@@ -101,11 +102,35 @@ public class User {
         this.bankAccounts = bankAccounts;
     }
 
-    public List<Relationship> getRelationships() {
-        return relationships;
+    public List<Connection> getConnections() {
+        return connections;
     }
 
-    public void setRelationships(List<Relationship> relationships) {
-        this.relationships = relationships;
+    public void setConnections(List<Connection> connections) {
+        this.connections = connections;
     }
+
+    //Helpers methods
+        //For the BankAccounts
+    public void addBankAccount(BankAccount bankAccount) {
+        bankAccounts.add(bankAccount);
+        bankAccount.setUser(this);
+    }
+
+    public void removeBankAccount(BankAccount bankAccount) {
+        bankAccounts.remove(bankAccount);
+        bankAccount.setUser(null);
+    }
+
+        //For the Connections
+    public void addConnection(Connection connection) {
+        connections.add(connection);
+        connection.getUsers().add(this);
+    }
+
+    public void removeConnection(Connection connection) {
+        connections.remove(connection);
+        connection.getUsers().remove(this);
+    }
+
 }

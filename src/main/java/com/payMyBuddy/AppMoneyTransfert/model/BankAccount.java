@@ -1,5 +1,7 @@
 package com.payMyBuddy.AppMoneyTransfert.model;
 
+import org.hibernate.annotations.ManyToAny;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,6 +14,12 @@ public class BankAccount {
 
     @Column(name = "bankAccount_iban")
     private String iban;
+
+    @ManyToOne(
+            cascade = CascadeType.ALL
+    )
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public int getBankAccountId() {
         return bankAccountId;
@@ -27,5 +35,13 @@ public class BankAccount {
 
     public void setIban(String iban) {
         this.iban = iban;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
