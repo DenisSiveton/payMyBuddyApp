@@ -41,7 +41,7 @@ PRIMARY KEY (id)
 ENGINE=InnoDB;
 
 -- Creation of the Table Relationship
-CREATE TABLE Connection(
+CREATE TABLE Relationship(
 connection_id INT NOT NULL,
 user_id INT NOT NULL,
 PRIMARY KEY (connection_id,user_id),
