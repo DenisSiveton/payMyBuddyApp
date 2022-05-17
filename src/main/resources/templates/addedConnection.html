@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css">
+    <title>PayMyBuddy - Transaction Confirmation</title>
+</head>
+<body class ="w-screen h-screen bg-gray-400 mx-auto">
+
+<header class ="mx-auto md:w-8/12 h-20 bg-gray-100">
+    <div class="md:h-1/2 flex justify-between content-center pl-1 py-1 pr-3">
+        <div th:style ="'background : linear-gradient(to right, #63BB5C, #8AC34A)'" class="rounded-md w-40">
+            <h1  class=" text-center font-normal text-lg text-white rounded-t-2xl py-auto">Pay My Buddy</h1>
+        </div>
+        <nav class="flex justify-end content-center font-medium">
+            <div class="mx-3 py-1 "><a class="" href="home">Home</a></div>
+            <div class="mx-3 py-1 font-bold text-center text-blue-700 hover:text-blue-400"><a th:href="transfer">Transfer</a></div>
+            <div class="mx-3 py-1"><a href="home">Profile</a></div>
+            <div class="mx-3 py-1"><a href="home">Contact</a></div>
+            <div class="mx-3 py-1"><a href="home">Log Off</a></div>
+        </nav>
+    </div>
+    <div class="md:h-1/2 md:w-full flex justify-left items-center mx-auto bg-gray-200">
+        <div th:style="'vertical-align:middle;'" class=" pl-5 mx-1 font-medium text-blue-700 hover:text-blue-400 "><a  href="home">Home</a></div>
+        <div th:style="'vertical-align:middle;'" class="mx-1 font-medium text-blue-700">/</div>
+        <div th:style="'vertical-align:middle;'" class="mx-1 font-medium text-gray-400">Transfer</div>
+    </div>
+</header>
+
+<div th:style="'height:calc(100% - 5rem);'" class="md:w-8/12 mx-auto  bg-gray-100 pt-10">
+    <div id="SummaryConnection" class="mt-2 mx-auto bg-gray-200 flex flex-col justify-evenly items-center w-3/5 h-80 rounded-3xl">
+        <div th:style ="'background : linear-gradient(to right, #63BB5C, #8AC34A);display:table;'" class="rounded-md px-7 py-2 text-center font-normal text-xl text-white">Connection Confirmation</div>
+        <div>Your new Connection was successfully added.</div>
+        <div th:text="'You can now make transactions with '+${newConnectionEmail} + '.'"></div>
+        <div id="link" class="w-full flex justify-evenly">
+            <div id="returnHome" class="w-1/4 h-15 py-1 px-3 text-center rounded-md text-white font-bold bg-red-700 text-lg font-medium hover:bg-red-500 transition duration-400 hover:shadow-lg">
+                <a href="/home">Home</a>
+            </div>
+            <div id="addNewTransaction" class="w-1/2 h-15 py-1 px-3 text-center rounded-md text-white font-bold bg-blue-700 text-lg font-medium hover:bg-blue-500 transition duration-400 hover:shadow-lg">
+                <a href="/connection/new">New Connection</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

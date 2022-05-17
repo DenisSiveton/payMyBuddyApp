@@ -9,6 +9,7 @@ import javax.persistence.*;
 public class BankAccount {
 
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int bankAccountId;
 

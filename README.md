@@ -1,17 +1,50 @@
-# payMyBuddyApp
+# PayMyBuddyApp
 application created by payMyBuddy to transfer money between friends
-# Getting Started
+## Getting Started
 
-### Reference Documentation
-For further reference, please consider the following sections:
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.5.5/maven-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.5.5/maven-plugin/reference/html/#build-image)
-* [Spring Data JPA](https://docs.spring.io/spring-boot/docs/2.5.5/reference/htmlsingle/#boot-features-jpa-and-spring-data)
+##Prerequisites
 
-### Guides
-The following guides illustrate how to use some features concretely:
+What things you need to install the software and how to install them
 
-* [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
-* [Accessing data with MySQL](https://spring.io/guides/gs/accessing-data-mysql/)
+Java 1.8
+Maven 3.6.2
+Mysql 8.0.17
+Installing
+
+A step by step series of examples that tell you how to get a development env running:
+
+### 1 > Install Java:
+
+https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html
+
+### 2 > Install Maven:
+
+https://maven.apache.org/install.html
+
+### 3 > Install MySql:
+
+https://dev.mysql.com/downloads/mysql/
+
+After downloading the mysql 8 installer and installing it, you will be asked to configure the password for the default root account.
+
+This code uses the default <b>root</b> account to connect and the password can be set as <b>rootroot</b>. If you add another user/credentials make sure to change the same in the code base.
+
+##Running App
+
+Post installation of MySQL, Java and Maven, you will have to set up the tables and data in the data base.
+
+To create the database, please run the sql commands present in the Schema.sql file under the resources folder in the code base.
+
+To add basic dataSet to simulate users, please run the sql commands present in the Data.sql file under the resources folder in the code base.
+
+Finally, you will be ready to import the code into an IDE of your choice and run the App.java to launch the application.
+
+##Testing
+
+The app has unit tests and integration tests written. The existing tests need to be triggered from maven-surefire plugin while we try to generate the final executable jar file.
+
+To run the tests from maven, go to the folder that contains the pom.xml file and execute the below command.
+
+mvn test

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css">
+    <title>PayMyBuddy - HomePage</title>
+    <style>.scroller {
+          animation: 15s scroll  infinite;}
+        @keyframes scroll {
+  from {
+    transform: translateX(-100px);
+  }
+
+  to {
+    transform: translateX(105%);
+  }
+}
+    </style>
+</head>
+<body class ="w-screen h-screen bg-gray-400 mx-auto ">
+<header class ="mx-auto md:w-8/12 h-20 bg-gray-100">
+    <div class="md:h-1/2 flex justify-between content-center pl-1 py-1 pr-3">
+        <div th:style ="'background : linear-gradient(to right, #63BB5C, #8AC34A)'" class="rounded-md w-40">
+            <h1  class=" text-center font-normal text-lg text-white rounded-t-2xl py-auto">Pay My Buddy</h1>
+        </div>
+        <nav class="flex justify-end content-center font-medium">
+            <div class="mx-3 py-1 font-bold text-center text-blue-700 hover:text-blue-400"><a class="" href="home">Home</a></div>
+            <div class="mx-3 py-1"><a th:href="transfer">Transfer</a></div>
+            <div class="mx-3 py-1"><a href="home">Profile</a></div>
+            <div class="mx-3 py-1"><a href="home">Contact</a></div>
+            <div class="mx-3 py-1"><a href="home">Log Off</a></div>
+        </nav>
+    </div>
+    <div th:style="'display:table'" class="md:h-1/2 md:w-full mx-auto">
+        <div th:style="'display:table-cell; vertical-align:middle;'" class=" md:h-full pl-5 mx-1 font-medium text-gray-400 bg-gray-200">Home</div>
+    </div>
+</header>
+
+<div th:style="'height:calc(100% - 5rem);'" class="md:w-8/12 pt-10 mx-auto bg-gray-100 overflow-hidden">
+    <div th:style="'background : linear-gradient(to right, #63BB5C, #8AC34A, #63BB5C)'" class="md:w-full h-15">
+        <h1  th:text="'Welcome '+${userHomePageInfo.username}" class="text-left text-gray-600 scroller text-2xl font-bold">Welcome User</h1>
+    </div>
+    <div id="userSummary" th:style="'border-color:#5cb95c'" class=" md:w-1/3 my-20 mx-auto flex-column justify-evenly items-center content-center border-2 rounded-2xl shadow-xl">
+        <h1 class="text-center text-medium m-5">Your balance account is</h1>
+        <h1 th:style="'color:#5cb95c'" th:text="${userHomePageInfo.balance} +€" class="text-center font-bold text-2xl mb-5">Balance</h1>
+    </div>
+
+    <div class="flex justify-evenly items-end">
+        <div class="md:w-1/3 mx-auto h-full bg-gray-100 text-gray-500">
+            <h1 id="recentUsers" class="text-center text-xl font-bold">Recent Users</h1>
+            <div class="mt-2 border border-gray-500 ">
+                <table class="w-full text-center">
+                    <tr th:style="'background:#5cb95c;'" class="h-15 text-white">
+                        <th> Email Address </th>
+                        <th> First Name </th>
+                        <th> Last name </th>
+                    </tr>
+                    <tr th:if="${userHomePageInfo.recentAddedUserInfo.empty}">
+                        <td colspan="3"> No User added </td>
+                    </tr>
+                    <tr th:each="userInfo, state : ${userHomePageInfo.recentAddedUserInfo}" class="h-15" th:style="${state.even} ? 'background:#F3F4F6;' : 'background:#E5E7EB;'">
+                        <td><span th:text="${userInfo.email}"> Email Address </span></td>
+                        <td th:text="${userInfo.firstName}"> First Name </td>
+                        <td th:text="${userInfo.lastName}"> Last Name</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="md:w-1/3 mx-auto h-full bg-gray-100 text-gray-500">
+            <h1 id="recentTransactions" class="text-center text-xl font-bold">Recent Transactions</h1>
+            <div class="mt-2 border border-gray-500 ">
+                <table class="w-full text-center">
+                    <tr th:style="'background:#5cb95c;'" class="h-15 text-white">
+                        <th> First Name </th>
+                        <th> Amount </th>
+                        <th> Description </th>
+                    </tr>
+                    <tr th:if="${userHomePageInfo.recentTransactionsInfo.empty}">
+                        <td colspan="3"> No Transaction </td>
+                    </tr>
+                    <tr th:each="transactionInfo, state : ${userHomePageInfo.recentTransactionsInfo}" class="h-15" th:style="${state.even} ? 'background:#F3F4F6;' : 'background:#E5E7EB;'">
+                        <td><span th:text="${transactionInfo.firstName}"> First Name </span></td>
+                        <td th:text="${transactionInfo.amount}"> Amount </td>
+                        <td th:text="${transactionInfo.description}"> Description </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css">
+    <title>PayMyBuddy - HomePage</title>
+</head>
+<body class ="w-screen h-screen bg-gray-400 mx-auto">
+
+<header class ="mx-auto h-20 md:w-8/12 bg-gray-100">
+    <div class="md:h-1/2 flex justify-between content-center pl-1 py-1 pr-3">
+        <div th:style ="'background : linear-gradient(to right, #63BB5C, #8AC34A)'" class="rounded-md w-40">
+            <h1  class=" text-center font-normal text-lg text-white rounded-t-2xl py-auto">Pay My Buddy</h1>
+        </div>
+        <nav class="flex justify-end content-center font-medium">
+            <div class="mx-3 py-1 "><a class="" href="/home">Home</a></div>
+            <div class="mx-3 py-1 font-bold text-center text-blue-700 hover:text-blue-400"><a href="/transfer">Transfer</a></div>
+            <div class="mx-3 py-1"><a href="home">Profile</a></div>
+            <div class="mx-3 py-1"><a href="home">Contact</a></div>
+            <div class="mx-3 py-1"><a href="home">Log Off</a></div>
+        </nav>
+    </div>
+    <div class="md:h-1/2 md:w-full flex justify-left items-center mx-auto bg-gray-200">
+        <div th:style="'vertical-align:middle;'" class=" pl-5 mx-1 font-medium text-blue-700 hover:text-blue-400 "><a  href="/home">Home</a></div>
+        <div th:style="'vertical-align:middle;'" class="mx-1 font-medium text-blue-700">/</div>
+        <div th:style="'vertical-align:middle;'" class="mx-1 font-medium text-blue-700 hover:text-blue-400 "><a  href="/transfer">Transfer</a></div>
+        <div th:style="'vertical-align:middle;'" class="mx-1 font-medium text-blue-700">/</div>
+        <div th:style="'vertical-align:middle;'" class="mx-1 font-medium text-gray-400">New Connection</div>
+    </div>
+</header>
+
+<div th:style="'height:calc(100% - 5rem); min-height:500px'" class="md:w-8/12 mx-auto h-screen bg-gray-100 pt-10">
+    <div id="addTransaction" class="md:w-2/3 h-2/5 mx-auto">
+        <form th:action="@{/connection/added}">
+            <div id="infoTransaction" class="h-full p-10 bg-gray-100 flex flex-col justify-evenly items-center border-2 border-gray rounded-3xl shadow-2xl ">
+                <div th:style ="'background : linear-gradient(to right, #63BB5C, #8AC34A);display:table;'"  class="rounded-md mb-10">
+                    <h1 th:style ="'display:table-cell; vertical-align:middle;'" class="px-7 py-2 text-center font-normal text-xl text-white">New Connection</h1>
+                </div>
+                <div th:if="${listErrorMessage}" class="rounded-md m-10 border bg-red-100 h-20 text-align-center" >
+                    <p th:each="errorMessage : ${listErrorMessage}" th:text="${errorMessage}" class="text-center">Error Message</p></div>
+                <div class="w-3/5 h-10 mm-10 border border-black shadow-2xl rounded-md ">
+                    <INPUT th:name="receiverEmail" class="w-full h-full  text-center rounded-md" TYPE="text" placeholder="Enter new connection email address">
+                </div>
+                <div class="w-full flex justify-evenly white-space-3 my-10">
+                    <div class="w-1/3 h-15 py-1 px-3 text-center rounded-md text-white font-bold bg-red-700 text-lg font-medium hover:bg-red-500 transition duration-400 hover:shadow-lg">
+                        <button type="button"><a href="/transfer">Cancel</a></button>
+                    </div>
+                    <div class="w-1/3 h-15 py-1 px-3 text-center rounded-md text-white font-bold bg-blue-700 text-lg font-medium hover:bg-blue-500 transition duration-400 hover:shadow-lg">
+                        <button type="submit" th:name="action" th:value="in">Add Connection</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

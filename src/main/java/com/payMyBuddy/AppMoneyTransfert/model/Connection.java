@@ -9,9 +9,12 @@ import java.util.List;
 public class Connection {
 
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int connectionId;
 
+    @Column(name = "date_start")
+    private String dateStart;
     @ManyToMany(
             mappedBy = "connections",
             cascade = {
@@ -35,6 +38,14 @@ public class Connection {
 
     public void setConnectionId(int connectionId) {
         this.connectionId = connectionId;
+    }
+
+    public String getDateStart() {
+        return dateStart;
+    }
+
+    public void setDateStart(String dateStart) {
+        this.dateStart = dateStart;
     }
 
     public List<User> getUsers() {

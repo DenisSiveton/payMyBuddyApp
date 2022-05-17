@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css">
+    <title>PayMyBuddy - HomePage</title>
+</head>
+<body class ="w-screen h-screen bg-gray-400 mx-auto">
+
+<header class ="mx-auto md:w-8/12 h-20 bg-gray-100">
+    <div class="md:h-1/2 flex justify-between content-center pl-1 py-1 pr-3">
+        <div th:style ="'background : linear-gradient(to right, #63BB5C, #8AC34A)'" class="rounded-md w-40">
+            <h1  class=" text-center font-normal text-lg text-white rounded-t-2xl py-auto">Pay My Buddy</h1>
+        </div>
+        <nav class="flex justify-end content-center font-medium">
+            <div class="mx-3 py-1 "><a class="" href="home">Home</a></div>
+            <div class="mx-3 py-1 font-bold text-center text-blue-700 hover:text-blue-400"><a th:href="transfer">Transfer</a></div>
+            <div class="mx-3 py-1"><a href="home">Profile</a></div>
+            <div class="mx-3 py-1"><a href="home">Contact</a></div>
+            <div class="mx-3 py-1"><a href="home">Log Off</a></div>
+        </nav>
+    </div>
+    <div class="md:h-1/2 md:w-full flex justify-left items-center mx-auto bg-gray-200">
+        <div th:style="'vertical-align:middle;'" class=" pl-5 mx-1 font-medium text-blue-700 hover:text-blue-400 "><a  href="home">Home</a></div>
+        <div th:style="'vertical-align:middle;'" class="mx-1 font-medium text-blue-700">/</div>
+        <div th:style="'vertical-align:middle;'" class="mx-1 font-medium text-gray-400">Transfer</div>
+    </div>
+</header>
+
+<div th:style="'height:calc(100% - 5rem);'" class="md:w-8/12 mx-auto  bg-gray-100 pt-5">
+    <div id="addTransaction" th:style="'max-height:40%;'" class="w-3/5 h-2/5 mx-auto">
+        <div id="menuTransaction" class="flex justify-between">
+            <div class="text-2xl font-bold">Send Money</div>
+            <div class="w-100 py-2 px-10 bg-blue-700 hover:bg-blue-500 rounded-md text-white font-bold"><a href="connection/new">Add Connection</a></div>
+        </div>
+        <form th:action="@{/transaction}">
+            <div id="infoTransaction" class=" p-3 bg-gray-200 flex flex-col justify-evenly items-center">
+
+                <div class="w-full flex pb-3 justify-around">
+                    <div class=" form-group blu-margin border border-black">
+                        <select th:name="email" class="form-control h-8"  id="emailContact">
+                            <option value="0">Select a Connection</option>
+                            <option th:each="email : ${listTransactionHomeInfo.listUserEmail}" th:value="${email}" th:text="${email}"></option>
+                        </select>
+                    </div>
+                    <div>
+                        <INPUT th:name="amount" class="text-right h-8 border border-black" TYPE="number" MIN="0" MAX="5000" STEP=".1" VALUE="0" SIZE="10">€
+                    </div>
+                </div>
+                <div id="description"  class="w-4/5 h-10 my-3 mx-3 border border-black shadow-2xl rounded-md ">
+                    <INPUT th:name="description" class="w-full h-full text-center rounded-md" TYPE="text" placeholder="Insert the description of the Transaction">
+                </div>
+
+                <div th:style="'background:#5cb95c;'"class="w-100 h-8 mt-3 px-20 text-center bg-green-500 hover:bg-green-400 rounded-md text-white font-bold">
+                    <button type="submit" th:name="action" th:value="in">Pay</button>
+                </div>
+            </div>
+        </form>
+    </div><div th:if="${listErrorMessage}" class="w-3/5 mx-auto mt-3 rounded-md border bg-red-100 text-align-center" >
+    <p th:each="errorMessage : ${listErrorMessage}" th:text="${errorMessage}" class="text-center">Error Message</p></div>
+    <div id="pastTransactions" class="w-3/5 h-3/5 mx-auto mt-5">
+        <h1 id="Menu Transaction" class="text-2xl font-bold">My Transactions</h1>
+        <div class="mt-2">
+            <table  th:style ="'tr:nth-child(odd) { background: #DDE;}'" class="w-full h-15 border border-gray-500">
+                <tr th:style="'background:#5cb95c;'" class="h-15 bg-green-500 text-white">
+                    <th> First Name </th>
+                    <th> Description </th>
+                    <th> Amount </th>
+                </tr>
+                <tr th:if="${listTransactionHomeInfo.listTransactionInfo.empty}" class="h-15 text-center">
+                    <td colspan="3"> No Transactions </td>
+                </tr>
+                <tr th:each="transactionInfo, state : ${listTransactionHomeInfo.listTransactionInfo.content}" th:style="${state.even} ? 'background:#F3F4F6;' : 'background:#E5E7EB;'" class="h-15 text-center">
+                    <td><span th:text="${transactionInfo.firstName}"> First Name </span></td>
+                    <td th:text="${transactionInfo.description}"> Description </td>
+                    <td th:text="${transactionInfo.amount} +'€'"> Amount </td>
+                </tr>
+            </table>
+        </div>
+        <div id="transactionPages" th:if="${listTransactionHomeInfo.listTransactionInfo.totalPages > 0}" class="flex justify-center items-center text-center text-blue-600 hover:text-blue-400 h-10 bg-gray-100 rounded-md">
+            <div class="h-full w-10 text-center border border-gray-300 rounded-l-lg"><a href="home">&#171;</a></div>
+            <div th:each="pageNumber : ${pageNumbers}" class="h-full w-10 border border-gray-300">
+                    <a th:href="@{/transfer(page=${pageNumber})}" th:text=${pageNumber} th:class="${pageNumber==listTransactionHomeInfo.listTransactionInfo.number + 1} ? 'font-weight: bold;'"></a>
+            </div>
+            <div class="h-full w-10 border border-gray-300 rounded-r-lg"><a href="home">&#187;</a></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
